@@ -14,6 +14,10 @@ module Ethereum
       
       @ssl = uri.scheme == 'https'
       @uri = URI("#{uri.scheme}://#{@host}:#{@port}#{uri.path}")
+
+      if uri.query && uri.query != ""
+        @uri = URI("#{uri.scheme}://#{@host}:#{@port}#{uri.path}?#{uri.query}")
+      end
     end
 
     def send_single(payload)
