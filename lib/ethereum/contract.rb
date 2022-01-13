@@ -18,7 +18,11 @@ module Ethereum
       @constructor_inputs, @functions, @events = Ethereum::Abi.parse_abi(abi)
       @formatter = Ethereum::Formatter.new
       @client = client
-      @sender = client.default_account
+
+      # Not every node support eth_accounts and we don't necessarily need this in a read-only view
+      # Only when writing we have to have an account to pay gas
+      # @sender = client.default_account
+
       @encoder = Encoder.new
       @decoder = Decoder.new
       @gas_limit = @client.gas_limit
